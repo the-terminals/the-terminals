@@ -1,13 +1,8 @@
-import { ArrowRight, Users, BookOpen, Target } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
 const Hero = () => {
-  const stats = [
-    { icon: Users, label: "Active Members", value: "500+" },
-    { icon: BookOpen, label: "Research Projects", value: "50+" },
-    { icon: Target, label: "Areas of Focus", value: "11" },
-  ];
 
   return (
     <section id="home" className="relative min-h-screen flex items-center hero-gradient">
@@ -37,17 +32,6 @@ const Hero = () => {
               <Button variant="outline" size="lg">
                 Join Our Community
               </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <stat.icon className="h-6 w-6 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
             </div>
           </div>
 
