@@ -57,6 +57,39 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // The Terminals custom color palette
+        "terminals-black": "hsl(var(--terminals-black))",
+        "terminals-white": "hsl(var(--terminals-white))",
+        "terminals-accent": "hsl(var(--terminals-accent))",
+        "terminals-gray": {
+          50: "hsl(var(--terminals-gray-50))",
+          100: "hsl(var(--terminals-gray-100))",
+          200: "hsl(var(--terminals-gray-200))",
+          300: "hsl(var(--terminals-gray-300))",
+          400: "hsl(var(--terminals-gray-400))",
+          500: "hsl(var(--terminals-gray-500))",
+          600: "hsl(var(--terminals-gray-600))",
+          700: "hsl(var(--terminals-gray-700))",
+          800: "hsl(var(--terminals-gray-800))",
+          900: "hsl(var(--terminals-gray-900))",
+        },
+      },
+      fontFamily: {
+        'display': ['Montserrat', 'sans-serif'],
+        'body': ['Lato', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-subtle': 'var(--gradient-subtle)',
+        'gradient-hero': 'var(--gradient-hero)',
+      },
+      boxShadow: {
+        'elegant': 'var(--shadow-elegant)',
+        'premium': 'var(--shadow-premium)',
+        'glow': 'var(--shadow-glow)',
+      },
+      transitionTimingFunction: {
+        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       borderRadius: {
         lg: "var(--radius)",

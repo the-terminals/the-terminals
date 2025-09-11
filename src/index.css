@@ -1,42 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* The Terminals Design System - Professional Academic Aesthetic */
 
 @layer base {
   :root {
+    /* Core monochrome palette */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 0%;
 
+    /* Card and surface colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 0%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Deep Blue Accent */
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Light grays */
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Sophisticated blue */
+    --accent: 224 76% 48%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 224 76% 48%;
 
-    --radius: 0.5rem;
+    /* Design tokens */
+    --radius: 0.75rem;
+
+    /* Custom design system colors */
+    --terminals-black: 0 0% 0%;
+    --terminals-white: 0 0% 100%;
+    --terminals-accent: 224 76% 48%;
+    --terminals-gray-50: 0 0% 98%;
+    --terminals-gray-100: 0 0% 96%;
+    --terminals-gray-200: 0 0% 90%;
+    --terminals-gray-300: 0 0% 83%;
+    --terminals-gray-400: 0 0% 64%;
+    --terminals-gray-500: 0 0% 45%;
+    --terminals-gray-600: 0 0% 32%;
+    --terminals-gray-700: 0 0% 25%;
+    --terminals-gray-800: 0 0% 15%;
+    --terminals-gray-900: 0 0% 9%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--terminals-accent)), hsl(224 76% 42%));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--terminals-gray-50)), hsl(var(--terminals-white)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--terminals-white)) 0%, hsl(var(--terminals-gray-50)) 100%);
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 6px -1px hsl(var(--terminals-gray-900) / 0.1), 0 2px 4px -1px hsl(var(--terminals-gray-900) / 0.06);
+    --shadow-premium: 0 10px 15px -3px hsl(var(--terminals-gray-900) / 0.1), 0 4px 6px -2px hsl(var(--terminals-gray-900) / 0.05);
+    --shadow-glow: 0 0 0 1px hsl(var(--terminals-accent) / 0.1), 0 4px 16px hsl(var(--terminals-accent) / 0.15);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +132,90 @@ All colors MUST be HSL.
   }
 }
 
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Logo component styles */
+  .terminals-logo {
+    @apply flex items-center font-display font-bold;
+  }
+  
+  .terminals-logo-the {
+    @apply bg-terminals-black text-terminals-white px-3 py-1 text-sm tracking-wider;
+  }
+  
+  .terminals-logo-terminals {
+    @apply bg-terminals-white text-terminals-black px-3 py-1 text-sm tracking-wider border border-terminals-black;
+  }
+
+  /* Hero section styles */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Interactive elements */
+  .interactive-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-pointer;
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .interactive-card:hover {
+    box-shadow: var(--shadow-premium);
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors;
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply relative text-foreground hover:text-primary transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  /* Grid animations */
+  .fade-in-up {
+    @apply opacity-0 translate-y-4 transition-all duration-500;
+  }
+
+  .fade-in-up.animate {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
