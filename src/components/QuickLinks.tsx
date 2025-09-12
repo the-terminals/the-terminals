@@ -16,7 +16,7 @@ const QuickLinks = () => {
       title: "Knowledge Sharing",
       description: "Share insights, ideas, and educational resources with our community.",
       action: "Explore Knowledge",
-      href: "#knowledge",
+      href: "/explore-knowledge",
     },
     {
       icon: Brain,
