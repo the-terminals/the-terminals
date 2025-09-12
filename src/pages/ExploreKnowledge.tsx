@@ -12,6 +12,14 @@ import courseRiyadImage from "@/assets/course-riyad.jpg";
 import courseEconomicsImage from "@/assets/course-economics.jpg";
 import courseProphetsImage from "@/assets/course-prophets.jpg";
 import islamicBookImage from "@/assets/islamic-book.jpg";
+import bookQuranImage from "@/assets/book-quran.jpg";
+import bookHadithImage from "@/assets/book-hadith.jpg";
+import bookSirahImage from "@/assets/book-sirah.jpg";
+import bookFiqhImage from "@/assets/book-fiqh.jpg";
+import bookAqeedahImage from "@/assets/book-aqeedah.jpg";
+import bookEthicsImage from "@/assets/book-ethics.jpg";
+import bookHistoryImage from "@/assets/book-history.jpg";
+import bookSpiritualityImage from "@/assets/book-spirituality.jpg";
 
 const ExploreKnowledge = () => {
   const courses = [
@@ -48,6 +56,15 @@ const ExploreKnowledge = () => {
       image: courseProphetsImage,
     },
   ];
+
+  const bookImages = [
+    bookQuranImage, bookHadithImage, bookSirahImage, bookFiqhImage, 
+    bookAqeedahImage, bookEthicsImage, bookHistoryImage, bookSpiritualityImage
+  ];
+
+  const getBookImage = (index: number) => {
+    return bookImages[index % bookImages.length];
+  };
 
   const books = [
     { id: 1, title: "তাফসীর : তাওযীহুল কুরআন", author: "আল্লামা মুহাম্মদ তাকী উসমানী" },
@@ -197,11 +214,11 @@ const ExploreKnowledge = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {books.map((book) => (
+              {books.map((book, index) => (
                 <Card key={book.id} className="interactive-card group border-0 shadow-elegant overflow-hidden">
                   <div className="aspect-[3/4] relative overflow-hidden">
                     <img 
-                      src={islamicBookImage} 
+                      src={getBookImage(index)} 
                       alt={book.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
