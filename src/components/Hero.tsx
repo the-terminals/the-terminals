@@ -46,7 +46,7 @@ const Hero = () => {
                     "Research & Development", 
                     "Career Guidance",
                     "Educational Excellence",
-                    "Cultural Development",
+                    "Intellectual Activities",
                     "Social Responsibility",
                     "Technology Innovation",
                     "International Relations"

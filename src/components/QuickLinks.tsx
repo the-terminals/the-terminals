@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, Users2, Calendar, Mail } from "lucide-react";
+import { ArrowRight, FileText, Mail, BookOpen, Brain } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
@@ -12,18 +12,18 @@ const QuickLinks = () => {
       href: "#research",
     },
     {
-      icon: Users2,
-      title: "Join Our Community",
-      description: "Become a member and contribute to our intellectual mission.",
-      action: "Get Involved",
-      href: "#contact",
+      icon: BookOpen,
+      title: "Knowledge Sharing",
+      description: "Share insights, ideas, and educational resources with our community.",
+      action: "Explore Knowledge",
+      href: "#knowledge",
     },
     {
-      icon: Calendar,
-      title: "Upcoming Events",
-      description: "Stay updated with our workshops, seminars, and conferences.",
-      action: "View Events",
-      href: "#events",
+      icon: Brain,
+      title: "Intellectual Activities",
+      description: "Engage in thought-provoking discussions and intellectual pursuits.",
+      action: "Join Activities",
+      href: "#activities",
     },
     {
       icon: Mail,
