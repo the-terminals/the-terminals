@@ -61,7 +61,7 @@ const OurWork = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {platforms.map((platform, index) => (
             <a
               key={index}
@@ -70,26 +70,19 @@ const OurWork = () => {
               rel="noopener noreferrer"
               className="group block"
             >
-              <Card className="interactive-card h-full border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <CardContent className="p-0 flex flex-col h-full">
-                  <div className="aspect-square relative overflow-hidden bg-muted/30">
+              <Card className="h-full border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/20 bg-card">
+                <CardContent className="p-4 flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full overflow-hidden bg-primary/10 p-1 mb-3 ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110">
                     <img
                       src={platform.logo}
                       alt={platform.name}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover rounded-full"
                     />
                   </div>
-                  <div className="p-5">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {platform.name}
-                      </h3>
-                      <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {platform.description}
-                    </p>
-                  </div>
+                  <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                    {platform.name}
+                  </h3>
+                  <ExternalLink className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
                 </CardContent>
               </Card>
             </a>
