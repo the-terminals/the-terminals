@@ -30,7 +30,7 @@ const QuickLinks = () => {
       title: "Career Guidance",
       description: "Access personalized consultancy and career development resources.",
       action: "Get Guidance",
-      href: "#career",
+      href: "/career-guidance",
     },
   ];
 
