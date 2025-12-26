@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { Button } from "./ui/button";
 
@@ -11,6 +12,7 @@ const Header = () => {
     { name: "Areas of Impact", href: "#areas" },
     { name: "Our Work", href: "#our-work" },
     { name: "Knowledge", href: "#knowledge" },
+    { name: "Research", href: "/research-publications", isRoute: true },
     { name: "Quick Access", href: "#quick-access" },
   ];
 
@@ -24,13 +26,23 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="nav-link text-sm font-medium"
-              >
-                {item.name}
-              </a>
+              item.isRoute ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="nav-link text-sm font-medium"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="nav-link text-sm font-medium"
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -60,14 +72,25 @@ const Header = () => {
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col space-y-3">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="nav-link text-sm font-medium py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+                item.isRoute ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="nav-link text-sm font-medium py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="nav-link text-sm font-medium py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                )
               ))}
               <div className="pt-4">
                 <Button variant="outline" size="sm" className="w-full">
