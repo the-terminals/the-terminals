@@ -1,422 +1,434 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Briefcase, Code, Database, Palette, TestTube, TrendingUp, ChevronRight, Target, Users } from "lucide-react";
+import { 
+  ArrowLeft, 
+  Briefcase, 
+  Code, 
+  Layers, 
+  Server, 
+  Palette, 
+  Cpu, 
+  ChevronRight, 
+  Rocket,
+  Target,
+  Lightbulb,
+  GraduationCap,
+  Zap,
+  CheckCircle2
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const careerPaths = [
   {
-    id: "project_manager",
-    role_title: "Project Manager",
-    category: "Leadership/Business",
-    icon: Users,
-    focus: "Planning, executing, and closing projects; managing scope, schedule, budget, and risk to deliver a defined outcome.",
-    progression: [
-      "Project Coordinator",
-      "Associate Project Manager",
-      "Project Manager",
-      "Senior Project Manager / Program Manager"
+    id: "full_stack_engineer",
+    role_name: "Full Stack Engineer",
+    icon: Layers,
+    gradient: "from-violet-500 to-purple-600",
+    role_snapshot: "A versatile developer capable of handling both the user-facing frontend and the data-processing backend. They bridge the gap between UI design and database architecture, often leading end-to-end feature development.",
+    tech_stack: {
+      frontend: ["React", "TypeScript", "Tailwind"],
+      backend: ["Node.js", "Python", "Go"],
+      databases: ["PostgreSQL", "MongoDB", "Redis"],
+      devops: ["Docker", "AWS", "GitHub Actions"]
+    },
+    core_responsibilities: [
+      "Building seamless end-to-end features from UI to database.",
+      "Designing system architectures that balance client-side and server-side logic.",
+      "Ensuring consistency between the frontend state and backend data models.",
+      "Managing deployment pipelines for the entire application stack."
     ],
-    key_skills: [
-      "Scope & Risk Management",
-      "Stakeholder Communication",
-      "Budgeting",
-      "Agile/Scrum/Waterfall Methodologies",
-      "Leadership"
-    ]
+    career_roadmap: {
+      beginner: "Build simple CRUD apps using a single language (like JS) for both ends.",
+      intermediate: "Master state management, API design, and cloud hosting.",
+      senior: "Architect complex distributed systems and optimize the full delivery lifecycle."
+    },
+    secret_sauce: ["Holistic systems thinking", "Adaptability", "T-shaped skills (deep in one area, broad in others)"],
+    interview_focus: ["Full-stack system design", "Integration testing", "API security", "Performance optimization"],
+    career_guidance: "Avoid the 'Jack of all trades, master of none' trap; pick one side (frontend or backend) to be your 'primary' strength while remaining proficient in the other."
   },
   {
-    id: "product_manager",
-    role_title: "Product Manager",
-    category: "Leadership/Business",
-    icon: Target,
-    focus: "Defining the 'why,' 'what,' and 'when' of the product that the engineering team builds. Focused on market, customer needs, and business value.",
-    progression: [
-      "Associate Product Manager (APM)",
-      "Product Manager",
-      "Senior Product Manager",
-      "Group Product Manager / Director of Product"
+    id: "sre",
+    role_name: "Site Reliability Engineer (SRE)",
+    icon: Server,
+    gradient: "from-emerald-500 to-teal-600",
+    role_snapshot: "Applies software engineering principles to infrastructure and operations to create ultra-scalable and highly reliable software systems. They treat operations as a software problem, focusing on automation and uptime.",
+    tech_stack: {
+      monitoring: ["Prometheus", "Grafana", "Datadog"],
+      automation: ["Python", "Go", "Terraform"],
+      orchestration: ["Kubernetes", "Istio"],
+      incident_management: ["PagerDuty", "Sentry"]
+    },
+    core_responsibilities: [
+      "Defining and maintaining Service Level Objectives (SLOs) and Error Budgets.",
+      "Automating manual operational tasks (toil reduction).",
+      "Performing root cause analysis (RCA) after system failures.",
+      "Improving system observability and alerting logic."
     ],
-    key_skills: [
-      "Market Research",
-      "User Empathy (UX/UI Knowledge)",
-      "Product Strategy & Roadmap",
-      "Prioritization",
-      "Data Analysis (Metrics/KPIs)"
-    ]
+    career_roadmap: {
+      beginner: "Learn Linux internals, networking, and basic scripting.",
+      intermediate: "Master K8s, SLIs/SLOs, and distributed system tracing.",
+      senior: "Design self-healing systems and define organizational reliability standards."
+    },
+    secret_sauce: ["Obsession with automation", "Calmness during high-stakes outages", "Pragmatic approach to risk"],
+    interview_focus: ["Error budget logic", "Distributed systems scaling", "Linux troubleshooting", "Scripting/Coding proficiency"],
+    career_guidance: "Focus on the 'Error Budget' mindset—reliability isn't 100% uptime; it's about making sure systems are reliable *enough* to meet user expectations."
+  },
+  {
+    id: "ml_engineer",
+    role_name: "Machine Learning Engineer",
+    icon: Cpu,
+    gradient: "from-orange-500 to-red-600",
+    role_snapshot: "Specializes in designing, building, and deploying production-ready ML models. Unlike Data Scientists who focus on research, ML Engineers focus on the engineering required to run models at scale.",
+    tech_stack: {
+      languages: ["Python", "C++", "Java"],
+      ml_frameworks: ["PyTorch", "TensorFlow", "Scikit-learn"],
+      mlops: ["MLflow", "Kubeflow", "DVC"],
+      cloud: ["AWS SageMaker", "Google Vertex AI"]
+    },
+    core_responsibilities: [
+      "Translating data science prototypes into production-level code.",
+      "Designing and managing ML pipelines and feature stores.",
+      "Optimizing model inference for speed and cost.",
+      "Monitoring models for data drift and performance decay in production."
+    ],
+    career_roadmap: {
+      beginner: "Master linear algebra, statistics, and basic model training.",
+      intermediate: "Learn MLOps, containerization, and model deployment strategies.",
+      senior: "Lead the architecture of large-scale ML systems and automated retraining loops."
+    },
+    secret_sauce: ["Mathematical intuition", "Experimental mindset", "Focus on data quality over algorithm hype"],
+    interview_focus: ["ML theory", "System design for ML", "Data engineering patterns", "Model evaluation metrics"],
+    career_guidance: "Focus on 'MLOps'—the value of a model is zero if it cannot be reliably deployed, monitored, and updated in a production environment."
   },
   {
     id: "ui_ux_engineer",
-    role_title: "UI/UX Engineer",
-    category: "Design/Development",
+    role_name: "UI/UX Engineer",
     icon: Palette,
-    focus: "Bridging the gap between design (UX/UI principles) and front-end development (coding) to build highly usable and accessible interfaces.",
-    progression: [
-      "Junior UX Developer",
-      "UI/UX Engineer",
-      "Senior Frontend Engineer (with UX focus)",
-      "Design System Architect"
+    gradient: "from-pink-500 to-rose-600",
+    role_snapshot: "The bridge between creative design and technical implementation. They are developers who specialize in design systems, accessibility, and high-fidelity interaction animations.",
+    tech_stack: {
+      design_tools: ["Figma", "Adobe XD", "Storybook"],
+      frontend: ["React", "CSS/SCSS", "Framer Motion"],
+      standards: ["WCAG (Accessibility)", "W3C Standards"]
+    },
+    core_responsibilities: [
+      "Building and maintaining centralized Design Systems.",
+      "Ensuring the product is accessible (a11y) to all users.",
+      "Implementing complex animations and transitions.",
+      "Prototyping high-fidelity interactive designs in code."
     ],
-    key_skills: [
-      "HTML, CSS, JavaScript",
-      "Design Tools (Figma/Sketch)",
-      "User Research & Testing",
-      "Accessibility (WCAG)",
-      "Responsive Design"
-    ]
+    career_roadmap: {
+      beginner: "Learn visual design principles and semantic HTML/CSS.",
+      intermediate: "Build component libraries and master accessibility standards.",
+      senior: "Drive design-to-code strategy across the entire engineering organization."
+    },
+    secret_sauce: ["Empathy", "Attention to visual detail", "Strong advocacy for the user experience"],
+    interview_focus: ["CSS architecture", "Accessibility best practices", "Design system logic", "Interaction design"],
+    career_guidance: "Specializing in 'Accessibility' is your superpower—it makes you indispensable to large companies that must comply with legal standards."
   },
   {
-    id: "software_qa_engineer",
-    role_title: "Software QA Engineer",
-    category: "Testing/Quality",
-    icon: TestTube,
-    focus: "Defining, implementing, and executing strategies to ensure the final product meets functional and non-functional requirements.",
-    progression: [
-      "QA Tester (Manual)",
-      "QA Analyst / Automation Engineer (SDET)",
-      "Senior QA Automation Engineer",
-      "QA Manager / Director of Quality"
-    ],
-    key_skills: [
-      "Test Case Design & Execution",
-      "Test Automation Frameworks (Selenium, Cypress)",
-      "CI/CD Integration",
-      "Performance/Security Testing",
-      "Bug Tracking"
-    ]
-  },
-  {
-    id: "frontend_react",
-    role_title: "Frontend Engineer (React)",
-    category: "Development (Frontend)",
+    id: "embedded_systems",
+    role_name: "Embedded Systems Engineer",
     icon: Code,
-    focus: "Building user interfaces and single-page applications (SPAs) using the React ecosystem.",
-    progression: [
-      "Junior React Developer",
-      "React Developer",
-      "Senior React Developer / Frontend Architect"
+    gradient: "from-blue-500 to-cyan-600",
+    role_snapshot: "Writes software that interacts directly with hardware. They work on everything from medical devices to smart appliances, where memory and processing power are extremely limited.",
+    tech_stack: {
+      languages: ["C", "C++", "Rust", "Assembly"],
+      protocols: ["I2C", "SPI", "UART", "CAN bus"],
+      tools: ["RTOS", "Oscilloscopes", "GDB", "Make/CMake"]
+    },
+    core_responsibilities: [
+      "Writing firmware to control hardware components.",
+      "Optimizing code for extremely low memory and power consumption.",
+      "Debugging hardware-level issues using logic analyzers.",
+      "Interfacing with sensors, actuators, and communication modules."
     ],
-    key_skills: [
-      "React.js, Hooks, Redux/Context",
-      "JavaScript (ES6+), JSX",
-      "State Management",
-      "Component Libraries",
-      "Webpack/Vite"
-    ]
-  },
-  {
-    id: "frontend_angular",
-    role_title: "Frontend Engineer (Angular)",
-    category: "Development (Frontend)",
-    icon: Code,
-    focus: "Building large-scale enterprise applications using the Angular framework and TypeScript.",
-    progression: [
-      "Junior Angular Developer",
-      "Angular Developer",
-      "Senior Angular Developer / Enterprise Frontend Architect"
-    ],
-    key_skills: [
-      "Angular (TypeScript-based)",
-      "RxJS & Observables",
-      "Angular CLI",
-      "Module and Component Architecture",
-      "NgRx/State Management"
-    ]
-  },
-  {
-    id: "backend_nodejs",
-    role_title: "Backend Engineer (Node.js)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Creating fast, scalable server-side applications, APIs, and microservices using JavaScript/TypeScript on the Node.js runtime.",
-    progression: [
-      "Junior Node.js Developer",
-      "Node.js Developer",
-      "Senior Node.js Developer / Backend Services Lead"
-    ],
-    key_skills: [
-      "Node.js, Express/NestJS",
-      "Asynchronous Programming",
-      "REST/GraphQL API Design",
-      "MongoDB/PostgreSQL",
-      "Microservices"
-    ]
-  },
-  {
-    id: "backend_dotnet",
-    role_title: "Backend Engineer (.NET)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Building robust, enterprise-grade applications, often in Windows/Azure environments, using the .NET framework (C#).",
-    progression: [
-      "Junior .NET Developer",
-      ".NET Developer",
-      "Senior .NET Developer / Solutions Architect"
-    ],
-    key_skills: [
-      ".NET Core/Framework, C#",
-      "ASP.NET MVC/Web API",
-      "Entity Framework (ORM)",
-      "SQL Server/Database Access",
-      "Azure Services"
-    ]
-  },
-  {
-    id: "backend_python",
-    role_title: "Backend/Data Engineer (Python)",
-    category: "Development (Backend/Data)",
-    icon: Database,
-    focus: "Developing server logic, scripting, data pipelines, and machine learning integration using the versatile Python language.",
-    progression: [
-      "Junior Python Developer",
-      "Python Engineer (Django/Flask)",
-      "Senior Data Engineer / ML Engineer"
-    ],
-    key_skills: [
-      "Python (Core)",
-      "Frameworks (Django/Flask)",
-      "Data Libraries (Pandas, NumPy)",
-      "API Development",
-      "Scripting & Automation"
-    ]
-  },
-  {
-    id: "backend_go",
-    role_title: "Backend Engineer (Go/Golang)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Building highly performant, concurrent, and scalable systems, often for cloud infrastructure, microservices, and network programming.",
-    progression: [
-      "Junior Go Developer",
-      "Go Engineer",
-      "Senior Go Developer / Distributed Systems Engineer"
-    ],
-    key_skills: [
-      "Go Language (Golang)",
-      "Concurrency & Goroutines",
-      "Microservices Architecture",
-      "API Development (gRPC, REST)",
-      "Performance Optimization"
-    ]
-  },
-  {
-    id: "backend_java",
-    role_title: "Backend Engineer (Java)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Developing large, reliable, and scalable enterprise applications, especially within the financial and big data sectors.",
-    progression: [
-      "Junior Java Developer",
-      "Java Developer",
-      "Senior Java Engineer / Enterprise Architect"
-    ],
-    key_skills: [
-      "Java (Core & EE/Spring)",
-      "Spring Framework (Boot, MVC, Security)",
-      "Object-Oriented Design (OOD)",
-      "JPA/Hibernate",
-      "Microservices/Cloud"
-    ]
+    career_roadmap: {
+      beginner: "Learn C and work with Arduino/Raspberry Pi/ESP32.",
+      intermediate: "Master Real-Time Operating Systems (RTOS) and peripheral drivers.",
+      senior: "Design complex hardware/software architectures and safety-critical systems."
+    },
+    secret_sauce: ["Deep patience for debugging", "Hardware intuition", "Resourcefulness"],
+    interview_focus: ["Bit manipulation", "Memory management", "Interrupt handling", "Concurrency in C"],
+    career_guidance: "The world is moving toward 'IoT'—learn Rust for embedded systems to position yourself as a modern, safety-conscious engineer."
   }
 ];
 
-const categories = [...new Set(careerPaths.map(path => path.category))];
-
 const CareerGuidance = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedCareer, setSelectedCareer] = useState<typeof careerPaths[0] | null>(null);
-
-  const filteredPaths = selectedCategory 
-    ? careerPaths.filter(path => path.category === selectedCategory)
-    : careerPaths;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft className="h-5 w-5" />
-              <span>Back to Home</span>
-            </Link>
-            <div className="flex items-center gap-2">
-              <Briefcase className="h-6 w-6 text-primary" />
-              <span className="font-display font-bold text-xl">Career Guidance</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
-            Find Your <span className="text-primary">Career Path</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore different career paths in technology and business. Discover the skills you need 
-            and understand the progression from entry-level to senior positions.
-          </p>
-        </div>
-
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          <Button
-            variant={selectedCategory === null ? "default" : "outline"}
-            onClick={() => setSelectedCategory(null)}
-            className="rounded-full"
+      <Header />
+      
+      <main className="pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back Button */}
+          <Link 
+            to="/" 
+            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8 group"
           >
-            All Careers
-          </Button>
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              onClick={() => setSelectedCategory(category)}
-              className="rounded-full"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </Link>
 
-        {/* Career Cards Grid */}
-        {!selectedCareer ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPaths.map((career) => {
-              const Icon = career.icon;
-              return (
-                <Card 
-                  key={career.id}
-                  className="group cursor-pointer border-0 shadow-elegant hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-                  onClick={() => setSelectedCareer(career)}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Icon className="h-6 w-6 text-primary" />
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+              <Briefcase className="h-4 w-4" />
+              <span className="text-sm font-medium">Career Guidance</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
+              Navigate Your <span className="text-primary">Tech Career</span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Explore comprehensive career paths in technology. Discover skills, responsibilities, 
+              and roadmaps to accelerate your professional journey.
+            </p>
+          </div>
+
+          {!selectedCareer ? (
+            /* Career Cards Grid */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {careerPaths.map((career, index) => {
+                const Icon = career.icon;
+                return (
+                  <Card 
+                    key={career.id}
+                    className="group cursor-pointer border-0 shadow-elegant hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 overflow-hidden"
+                    onClick={() => setSelectedCareer(career)}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <CardHeader className="relative pb-4">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${career.gradient} opacity-5 group-hover:opacity-10 transition-opacity`} />
+                      <div className="relative">
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${career.gradient} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                          <Icon className="h-8 w-8 text-white" />
+                        </div>
+                        <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
+                          {career.role_name}
+                        </CardTitle>
                       </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {career.category}
-                      </Badge>
+                    </CardHeader>
+                    <CardContent className="relative">
+                      <p className="text-muted-foreground text-sm line-clamp-3 mb-6">
+                        {career.role_snapshot}
+                      </p>
+                      
+                      {/* Tech Stack Preview */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {Object.values(career.tech_stack).flat().slice(0, 4).map((tech, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {Object.values(career.tech_stack).flat().length > 4 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{Object.values(career.tech_stack).flat().length - 4} more
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className={`flex items-center text-sm font-semibold bg-gradient-to-r ${career.gradient} bg-clip-text text-transparent`}>
+                        Explore Career Path
+                        <ChevronRight className="h-4 w-4 ml-1 text-primary group-hover:translate-x-2 transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : (
+            /* Career Detail View */
+            <div className="max-w-5xl mx-auto animate-fade-in">
+              <Button 
+                variant="ghost" 
+                onClick={() => setSelectedCareer(null)}
+                className="mb-8 hover:bg-primary/10"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to All Careers
+              </Button>
+
+              {/* Hero Card */}
+              <Card className={`border-0 shadow-2xl overflow-hidden mb-8`}>
+                <div className={`bg-gradient-to-br ${selectedCareer.gradient} p-8`}>
+                  <div className="flex items-center gap-6">
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
+                      <selectedCareer.icon className="h-10 w-10 text-white" />
                     </div>
-                    <CardTitle className="text-lg mt-3 group-hover:text-primary transition-colors">
-                      {career.role_title}
+                    <div>
+                      <h1 className="text-3xl font-bold text-white mb-2">{selectedCareer.role_name}</h1>
+                      <p className="text-white/80 max-w-2xl">{selectedCareer.role_snapshot}</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Tech Stack */}
+                <Card className="border-0 shadow-elegant">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${selectedCareer.gradient}`}>
+                        <Code className="h-5 w-5 text-white" />
+                      </div>
+                      Tech Stack
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {Object.entries(selectedCareer.tech_stack).map(([category, techs]) => (
+                      <div key={category}>
+                        <p className="text-sm font-medium text-muted-foreground capitalize mb-2">
+                          {category.replace(/_/g, ' ')}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {techs.map((tech, i) => (
+                            <Badge 
+                              key={i} 
+                              variant="secondary"
+                              className="hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                {/* Core Responsibilities */}
+                <Card className="border-0 shadow-elegant">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${selectedCareer.gradient}`}>
+                        <Target className="h-5 w-5 text-white" />
+                      </div>
+                      Core Responsibilities
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                      {career.focus}
-                    </p>
-                    <div className="flex items-center text-primary text-sm font-medium">
-                      View Career Path
-                      <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    <ul className="space-y-3">
+                      {selectedCareer.core_responsibilities.map((resp, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                          <span className="text-muted-foreground">{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
-              );
-            })}
-          </div>
-        ) : (
-          /* Career Detail View */
-          <div className="max-w-4xl mx-auto">
-            <Button 
-              variant="ghost" 
-              onClick={() => setSelectedCareer(null)}
-              className="mb-6"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to All Careers
-            </Button>
 
-            <Card className="border-0 shadow-elegant overflow-hidden">
-              <CardHeader className="bg-primary/5 border-b border-border">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <selectedCareer.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <div>
-                    <Badge variant="secondary" className="mb-2">
-                      {selectedCareer.category}
-                    </Badge>
-                    <CardTitle className="text-2xl">{selectedCareer.role_title}</CardTitle>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6 space-y-8">
-                {/* Focus */}
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Target className="h-5 w-5 text-primary" />
-                    Role Focus
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {selectedCareer.focus}
-                  </p>
-                </div>
-
-                {/* Career Progression */}
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-primary" />
-                    Career Progression
-                  </h3>
-                  <div className="relative">
-                    <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary/20" />
-                    <div className="space-y-4">
-                      {selectedCareer.progression.map((step, index) => (
-                        <div key={index} className="flex items-center gap-4 relative">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${
-                            index === selectedCareer.progression.length - 1 
-                              ? 'bg-primary text-primary-foreground' 
-                              : 'bg-primary/20 text-primary'
-                          }`}>
-                            {index + 1}
-                          </div>
-                          <div className={`flex-1 p-3 rounded-lg ${
-                            index === selectedCareer.progression.length - 1 
-                              ? 'bg-primary/10 border border-primary/20' 
-                              : 'bg-muted/50'
-                          }`}>
-                            <span className={`font-medium ${
-                              index === selectedCareer.progression.length - 1 
-                                ? 'text-primary' 
-                                : 'text-foreground'
+                {/* Career Roadmap */}
+                <Card className="border-0 shadow-elegant lg:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${selectedCareer.gradient}`}>
+                        <Rocket className="h-5 w-5 text-white" />
+                      </div>
+                      Career Roadmap
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {Object.entries(selectedCareer.career_roadmap).map(([level, description], index) => (
+                        <div 
+                          key={level} 
+                          className={`relative p-6 rounded-xl border-2 transition-all hover:shadow-lg ${
+                            index === 2 ? 'border-primary bg-primary/5' : 'border-border'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                              index === 2 
+                                ? 'bg-primary text-primary-foreground' 
+                                : 'bg-muted text-muted-foreground'
                             }`}>
-                              {step}
-                            </span>
+                              {index + 1}
+                            </div>
+                            <span className="font-semibold capitalize text-lg">{level}</span>
                           </div>
+                          <p className="text-muted-foreground text-sm">{description}</p>
                         </div>
                       ))}
                     </div>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
 
-                {/* Key Skills */}
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                    <Briefcase className="h-5 w-5 text-primary" />
-                    Key Skills Required
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedCareer.key_skills.map((skill, index) => (
-                      <Badge 
-                        key={index} 
-                        variant="outline"
-                        className="px-3 py-1.5 text-sm bg-card hover:bg-primary/10 hover:border-primary/50 transition-colors"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                {/* Secret Sauce */}
+                <Card className="border-0 shadow-elegant">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${selectedCareer.gradient}`}>
+                        <Lightbulb className="h-5 w-5 text-white" />
+                      </div>
+                      Secret Sauce
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCareer.secret_sauce.map((item, i) => (
+                        <Badge 
+                          key={i} 
+                          className={`bg-gradient-to-r ${selectedCareer.gradient} text-white border-0 px-4 py-2`}
+                        >
+                          <Zap className="h-3 w-3 mr-2" />
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Interview Focus */}
+                <Card className="border-0 shadow-elegant">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${selectedCareer.gradient}`}>
+                        <GraduationCap className="h-5 w-5 text-white" />
+                      </div>
+                      Interview Focus
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCareer.interview_focus.map((item, i) => (
+                        <Badge key={i} variant="outline" className="px-3 py-2">
+                          {item}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Career Guidance Tip */}
+                <Card className={`border-0 shadow-elegant lg:col-span-2 bg-gradient-to-br ${selectedCareer.gradient}`}>
+                  <CardContent className="p-8">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-xl bg-white/20 backdrop-blur">
+                        <Lightbulb className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white mb-2">Pro Tip</h3>
+                        <p className="text-white/90 text-lg leading-relaxed">
+                          {selectedCareer.career_guidance}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          )}
+        </div>
       </main>
+      
+      <Footer />
     </div>
   );
 };
