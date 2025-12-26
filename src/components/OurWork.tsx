@@ -2,7 +2,6 @@ import { ExternalLink } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 
 import logoKms from "@/assets/logo-kms.png";
-import logoJamia from "@/assets/logo-jamia.png";
 import logoIslamography from "@/assets/logo-islamography.png";
 import logoIslamzone from "@/assets/logo-islamzone.png";
 import logoMuslimminds from "@/assets/logo-muslimminds.png";
@@ -15,12 +14,6 @@ const OurWork = () => {
       url: "https://khilkhetmuslimsociety.netlify.app/",
       logo: logoKms,
       description: "Community platform for Khilkhet Muslim Society",
-    },
-    {
-      name: "Jamiatul Uloomil Islamia",
-      url: "https://jamiatululoomilislamia.netlify.app/",
-      logo: logoJamia,
-      description: "Digital platform for Islamic educational institution",
     },
     {
       name: "Islamography",
@@ -61,7 +54,7 @@ const OurWork = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {platforms.map((platform, index) => (
             <a
               key={index}
@@ -70,19 +63,22 @@ const OurWork = () => {
               rel="noopener noreferrer"
               className="group block"
             >
-              <Card className="h-full border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/20 bg-card">
-                <CardContent className="p-4 flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-primary/10 p-1 mb-3 ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110">
+              <Card className="h-full border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-3 hover:border-primary/20 bg-card aspect-square">
+                <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
+                  <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-primary/10 p-1.5 mb-4 ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110">
                     <img
                       src={platform.logo}
                       alt={platform.name}
                       className="w-full h-full object-cover rounded-full"
                     />
                   </div>
-                  <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                  <h3 className="text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-2">
                     {platform.name}
                   </h3>
-                  <ExternalLink className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+                  <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 mb-3">
+                    {platform.description}
+                  </p>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
                 </CardContent>
               </Card>
             </a>
