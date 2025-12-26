@@ -1,13 +1,12 @@
-import { Clock, User, BookOpen } from "lucide-react";
+import { Clock, User, BookOpen, Play } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 // Import images
-import courseArabicImage from "@/assets/course-arabic.jpg";
-import courseRiyadImage from "@/assets/course-riyad.jpg";
-import courseEconomicsImage from "@/assets/course-economics.jpg";
-import courseProphetsImage from "@/assets/course-prophets.jpg";
+import courseMarriageImage from "@/assets/course-marriage.png";
+import courseTimeImage from "@/assets/course-time.png";
+import courseFinanceImage from "@/assets/course-finance.png";
 import bookQuranImage from "@/assets/book-quran.jpg";
 import bookHadithImage from "@/assets/book-hadith.jpg";
 import bookSirahImage from "@/assets/book-sirah.jpg";
@@ -21,35 +20,27 @@ const KnowledgeSection = () => {
   const courses = [
     {
       id: 1,
-      title: "কুরআনিক আরবি ভাষা পরিচিতি",
-      instructor: "ড. আবু আমিনাহ বিলাল ফিলিপ্স",
-      duration: "১২ সপ্তাহ",
-      topics: ["আরবি বর্ণমালা", "মৌলিক ব্যাকরণ", "কুরআনের শব্দভাণ্ডার", "সহজ আয়াতের অনুবাদ"],
-      image: courseArabicImage,
+      title: "Marriage Preparation (Male)",
+      instructor: "Shamsul Arefin",
+      totalClasses: "১৮ টি",
+      image: courseMarriageImage,
+      badge: "Pre-Marriage",
     },
     {
       id: 2,
-      title: "রিয়াদুস সালিহীন অধ্যয়ন",
-      instructor: "শাইখ আব্দুর রাযযাক আল-বাদর",
-      duration: "১৮ সপ্তাহ",
-      topics: ["ইখলাস (নিষ্ঠা)", "তাওবা", "সবর (ধৈর্য)", "আদব (শিষ্টাচার)"],
-      image: courseRiyadImage,
+      title: "Time Management",
+      instructor: "Academy Authority",
+      totalClasses: "২৪ টি",
+      image: courseTimeImage,
+      badge: "Productivity",
     },
     {
       id: 3,
-      title: "ইসলামী অর্থনীতির মূলনীতি",
-      instructor: "ড. মুহাম্মদ নেজাতুল্লাহ সিদ্দিকী",
-      duration: "১০ সপ্তাহ",
-      topics: ["রিবা মুক্ত লেনদেন", "যাকাত ব্যবস্থাপনা", "ইসলামী ব্যাংকিং", "নৈতিক বিনিয়োগ"],
-      image: courseEconomicsImage,
-    },
-    {
-      id: 4,
-      title: "নবীদের কাহিনী: জীবন থেকে শিক্ষা",
-      instructor: "শাইখ ওমর সুলেমান",
-      duration: "১৫ সপ্তাহ",
-      topics: ["আদম (আ.) এর পরীক্ষা", "ইব্রাহিম (আ.) এর ত্যাগ", "মূসা (আ.) এর সংগ্রাম", "মুহাম্মদ (ﷺ) এর দাওয়াত"],
-      image: courseProphetsImage,
+      title: "Introduction to Islamic Finance and Economics",
+      instructor: "Aslaf Academy",
+      totalClasses: "৫৭ টি",
+      image: courseFinanceImage,
+      badge: "Finance",
     },
   ];
 
@@ -88,51 +79,54 @@ const KnowledgeSection = () => {
         {/* Courses Section */}
         <div className="mb-16">
           <div className="flex items-center gap-3 mb-8">
-            <BookOpen className="h-6 w-6 text-primary" />
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Play className="h-5 w-5 text-primary" />
+            </div>
             <h3 className="text-2xl font-display font-bold text-foreground">
-              Courses
+              Featured Courses
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {courses.map((course) => (
-              <Card key={course.id} className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <Card 
+                key={course.id} 
+                className="group border-0 shadow-elegant overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 bg-card"
+              >
                 <div className="aspect-video relative overflow-hidden">
                   <img
                     src={course.image}
                     alt={course.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
+                    {course.badge}
+                  </Badge>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2 text-white/90 text-sm">
+                      <Play className="h-4 w-4 fill-current" />
+                      <span>মোট ক্লাস: {course.totalClasses}</span>
+                    </div>
+                  </div>
                 </div>
 
-                <CardContent className="p-5">
-                  <h4 className="text-base font-semibold text-foreground mb-2 line-clamp-2">
+                <CardContent className="p-6">
+                  <h4 className="text-lg font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
                     {course.title}
                   </h4>
 
-                  <div className="flex items-center gap-2 mb-2 text-sm text-muted-foreground">
-                    <User className="h-3 w-3" />
-                    <span className="line-clamp-1">{course.instructor}</span>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <User className="h-4 w-4" />
+                    <span className="text-sm">{course.instructor}</span>
                   </div>
-
-                  <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
-                    <Clock className="h-3 w-3" />
-                    <span>{course.duration}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    {course.topics.slice(0, 2).map((topic, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {topic}
-                      </Badge>
-                    ))}
-                    {course.topics.length > 2 && (
-                      <Badge variant="outline" className="text-xs">
-                        +{course.topics.length - 2}
-                      </Badge>
-                    )}
-                  </div>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="w-full mt-4 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all"
+                  >
+                    View Course
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -142,7 +136,9 @@ const KnowledgeSection = () => {
         {/* Books Section */}
         <div>
           <div className="flex items-center gap-3 mb-8">
-            <BookOpen className="h-6 w-6 text-primary" />
+            <div className="p-2 rounded-lg bg-primary/10">
+              <BookOpen className="h-5 w-5 text-primary" />
+            </div>
             <h3 className="text-2xl font-display font-bold text-foreground">
               Books Collection
             </h3>

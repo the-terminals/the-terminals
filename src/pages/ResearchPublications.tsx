@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, FileText, Users, Calendar, ChevronDown, ChevronRight, Filter, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, BookOpen, FileText, Users, Calendar, ChevronDown, ChevronRight, Filter, Search, Sparkles, X, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -142,16 +148,19 @@ const typeIcons: Record<string, React.ReactNode> = {
   "Strategic Framework": <Sparkles className="w-4 h-4" />
 };
 
-interface InitiativeCardProps {
-  initiative: {
-    title: string;
-    type: string;
-    focus: string;
-  };
-  index: number;
+interface Initiative {
+  title: string;
+  type: string;
+  focus: string;
 }
 
-const InitiativeCard = ({ initiative, index }: InitiativeCardProps) => {
+interface InitiativeCardProps {
+  initiative: Initiative;
+  index: number;
+  onViewDetails: (initiative: Initiative) => void;
+}
+
+const InitiativeCard = ({ initiative, index, onViewDetails }: InitiativeCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -182,8 +191,16 @@ const InitiativeCard = ({ initiative, index }: InitiativeCardProps) => {
           <span className="italic">{initiative.focus}</span>
         </div>
         
-        <div className={`mt-4 pt-3 border-t border-border/50 transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}>
-          <Button variant="ghost" size="sm" className="w-full text-primary hover:text-primary hover:bg-primary/10">
+        <div className="mt-4 pt-3 border-t border-border/50">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="w-full text-primary hover:text-primary hover:bg-primary/10"
+            onClick={(e) => {
+              e.stopPropagation();
+              onViewDetails(initiative);
+            }}
+          >
             View Details
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
@@ -197,17 +214,14 @@ interface PillarSectionProps {
   pillar: {
     category: string;
     mission: string;
-    initiatives: Array<{
-      title: string;
-      type: string;
-      focus: string;
-    }>;
+    initiatives: Initiative[];
   };
   isExpanded: boolean;
   onToggle: () => void;
+  onViewDetails: (initiative: Initiative) => void;
 }
 
-const PillarSection = ({ pillar, isExpanded, onToggle }: PillarSectionProps) => {
+const PillarSection = ({ pillar, isExpanded, onToggle, onViewDetails }: PillarSectionProps) => {
   return (
     <Collapsible open={isExpanded} onOpenChange={onToggle}>
       <Card className="overflow-hidden border border-border/50 hover:border-primary/20 transition-all duration-300">
@@ -239,7 +253,12 @@ const PillarSection = ({ pillar, isExpanded, onToggle }: PillarSectionProps) => 
               <p className="text-muted-foreground mb-6">{pillar.mission}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {pillar.initiatives.map((initiative, index) => (
-                  <InitiativeCard key={index} initiative={initiative} index={index} />
+                  <InitiativeCard 
+                    key={index} 
+                    initiative={initiative} 
+                    index={index}
+                    onViewDetails={onViewDetails}
+                  />
                 ))}
               </div>
             </div>
@@ -254,6 +273,7 @@ const ResearchPublications = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [expandedPillars, setExpandedPillars] = useState<Set<string>>(new Set(["Society"]));
+  const [selectedInitiative, setSelectedInitiative] = useState<Initiative | null>(null);
 
   const publicationTypes = [...new Set(researchPillars.flatMap(p => p.initiatives.map(i => i.type)))];
 
@@ -398,6 +418,7 @@ const ResearchPublications = () => {
                 pillar={pillar}
                 isExpanded={expandedPillars.has(pillar.category)}
                 onToggle={() => togglePillar(pillar.category)}
+                onViewDetails={setSelectedInitiative}
               />
             ))}
           </div>
@@ -432,6 +453,52 @@ const ResearchPublications = () => {
           </div>
         </div>
       </section>
+
+      {/* Details Dialog */}
+      <Dialog open={!!selectedInitiative} onOpenChange={() => setSelectedInitiative(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-start gap-3 mb-4">
+              <div className={`p-3 rounded-lg ${selectedInitiative ? typeColors[selectedInitiative.type] : ''}`}>
+                {selectedInitiative && typeIcons[selectedInitiative.type]}
+              </div>
+              <Badge variant="outline" className={selectedInitiative ? typeColors[selectedInitiative.type] : ''}>
+                {selectedInitiative?.type}
+              </Badge>
+            </div>
+            <DialogTitle className="text-xl leading-tight">
+              {selectedInitiative?.title}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6 pt-4">
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground mb-2">Research Focus</h4>
+              <p className="text-foreground">{selectedInitiative?.focus}</p>
+            </div>
+            
+            <div className="p-4 bg-muted/50 rounded-lg">
+              <h4 className="text-sm font-medium text-foreground mb-2">Abstract</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                This publication explores key aspects of {selectedInitiative?.focus.toLowerCase()}, 
+                providing comprehensive analysis and actionable insights for researchers and practitioners 
+                in the field. The research methodology combines qualitative and quantitative approaches 
+                to ensure robust findings and practical applicability.
+              </p>
+            </div>
+            
+            <div className="flex gap-3">
+              <Button className="flex-1">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Read Full Publication
+              </Button>
+              <Button variant="outline">
+                Download PDF
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
